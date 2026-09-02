@@ -1,0 +1,1 @@
+{"id":"addeba61ffaadb4c2f8bac41fe0f2916","fullName":"specs/smoke-testing/11-exams-grading-belts/member.attendance-progress.spec.ts:172:7","name":"MEM-003 / MEM-004 - attendance numbers are real, not placeholders, and agree @MEM-003 @MEM-004 @destructive","status":"failed","testResultsByEnv":{"default":"e237fb17fe6b3b915bb780dbfab4247c"}}

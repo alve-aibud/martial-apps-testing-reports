@@ -1,0 +1,228 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: specs/smoke-testing/09-calendar-scheduling/owner.calendar-controls.spec.ts >> Owner edits an event on the calendar >> OWP-009 - the popup offers a teacher picker of real club members @OWP-009 @destructive
+- Location: e2e/specs/smoke-testing/09-calendar-scheduling/owner.calendar-controls.spec.ts:392:7
+
+# Error details
+
+```
+Error: this test needs 240 minutes of clear day left - a class must start and end on the same UTC date. Run it before ~20:00 UTC.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 2
+Received: 3
+```
+
+# Test source
+
+```ts
+  18  |  * Manual scenario: manual-qa/role-owner-primary.md
+  19  |  *   OWP-009  Edit / cancel / reschedule an event  (ALL NINE STEPS)
+  20  |  *
+  21  |  * ============================================================================
+  22  |  * THIS IS `MEM-042`'s MISSING POSITIVE CONTROL, AND IT CAUGHT A REAL DEFECT
+  23  |  * ON ITS FIRST RUN - in the test suite, not the app.
+  24  |  * ============================================================================
+  25  |  *
+  26  |  * `MEM-042` (in `member.blocked.spec.ts`, this folder) asserts a member sees
+  27  |  * no create-event control on the calendar. It had no positive control, which
+  28  |  * `COVERAGE.md` section 5 already flagged as one of only two such gaps.
+  29  |  *
+  30  |  * Writing this pair showed why it mattered. `clubSectionLocators.createEvent`
+  31  |  * was `/create (event|class)|add event|nouvel? [ée]v[ée]nement/i`, and the
+  32  |  * button's actual label is `clubCalendar.create` - plain "Create" / "Créer"
+  33  |  * (`ClubCalendar.tsx` ~line 1228). The pattern required "event" or "class" to
+  34  |  * follow "create", so it matched NOTHING on that page for any role. `MEM-042`
+  35  |  * was asserting the absence of a selector that could never match, and had
+  36  |  * been passing vacuously since it was written on 2026-08-01.
+  37  |  *
+  38  |  * The locator is fixed and this test is the guard: if the label moves again,
+  39  |  * this fails loudly instead of `MEM-042` going quietly green.
+  40  |  */
+  41  | 
+  42  | test.use(asRole('ownerPrimary'));
+  43  | 
+  44  | test.describe('Owner has the calendar controls a member does not', () => {
+  45  |   test('OWP-009 - the owner IS offered the calendar create-event control @OWP-009 @MEM-042', async ({
+  46  |     clubSection,
+  47  |     clubId,
+  48  |   }, testInfo) => {
+  49  |     testInfo.annotations.push({
+  50  |       type: 'manual-scenario',
+  51  |       description: 'manual-qa/role-owner-primary.md#OWP-009 (step 1, partial)',
+  52  |     });
+  53  |     testInfo.annotations.push({
+  54  |       type: 'positive-control',
+  55  |       description:
+  56  |         'Pairs with MEM-042 in member.blocked.spec.ts. Proves the selector that ' +
+  57  |         'test asserts absent does match for a role that should have it.',
+  58  |     });
+  59  | 
+  60  |     await clubSection('calendar').expectControlsPresent(clubRoute(clubId, 'calendar'), [
+  61  |       { label: 'create event/class', locator: clubSectionLocators.createEvent },
+  62  |     ]);
+  63  |   });
+  64  | });
+  65  | 
+  66  | /**
+  67  |  * ============================================================================
+  68  |  * CLASS TIMES ARE **UTC**, NOT THE RUNNER'S LOCAL CLOCK.
+  69  |  * ============================================================================
+  70  |  *
+  71  |  * Everything below builds dates and times from UTC getters, and that is not a
+  72  |  * style choice - it is a bug this file already hit. A class asked for "60
+  73  |  * minutes from now" using local `getHours()` came back reading "Commence dans
+  74  |  * 6 h 59 min", because the runner sits at UTC+6 and the app interprets the
+  75  |  * `HH:mm` it is handed as UTC. Proof from the same run: a 09:00 class showed
+  76  |  * "starts in 2 h 47 min" at 06:13Z - exactly 09:00 minus 06:13, to the minute.
+  77  |  *
+  78  |  * Using local hours does not merely shift the class; it silently moves it to
+  79  |  * the wrong side of the two-hour late-cancel threshold, which turns steps 6
+  80  |  * and 8 into assertions about nothing.
+  81  |  */
+  82  | function todayIso(at: Date = new Date()): string {
+  83  |   const pad = (x: number) => String(x).padStart(2, '0');
+  84  |   return `${at.getUTCFullYear()}-${pad(at.getUTCMonth() + 1)}-${pad(at.getUTCDate())}`;
+  85  | }
+  86  | 
+  87  | /**
+  88  |  * A start time `minutesAhead` from now, as `HH:mm`.
+  89  |  *
+  90  |  * Relative rather than fixed, and that correction is the reason steps 5, 6 and
+  91  |  * 8 exist at all. The first attempt hardcoded 09:00 and asserted the
+  92  |  * late-cancel block, assuming a morning class would be in the past by the time
+  93  |  * the suite ran. It was not - the dialog read "Commence dans 2 h 47 min", so
+  94  |  * the class was OUTSIDE the two-hour window and cancelling was correctly
+  95  |  * allowed. The assertion was wrong, not the app. Deriving the time from `now`
+  96  |  * puts the class on whichever side of the threshold the test actually wants.
+  97  |  */
+  98  | function startTimeFromNow(minutesAhead: number): string {
+  99  |   const t = new Date(Date.now() + minutesAhead * 60_000);
+  100 |   const pad = (x: number) => String(x).padStart(2, '0');
+  101 |   return `${pad(t.getUTCHours())}:${pad(t.getUTCMinutes())}`;
+  102 | }
+  103 | 
+  104 | /**
+  105 |  * Guard for the one thing that can make these tests unrunnable: a class needs
+  106 |  * `startTime < endTime` on the SAME day (`classValidator.js` line 184), and
+  107 |  * the form adds a 60-minute default duration. So a start time late enough that
+  108 |  * start + 60 crosses midnight is refused - which would surface as an opaque
+  109 |  * 400 rather than a reason.
+  110 |  */
+  111 | function assertRoomBeforeMidnight(minutesAhead: number): void {
+  112 |   const end = new Date(Date.now() + (minutesAhead + 60) * 60_000);
+  113 |   expect(
+  114 |     end.getUTCDate(),
+  115 |     `this test needs ${minutesAhead + 60} minutes of clear day left - a class ` +
+  116 |       `must start and end on the same UTC date. Run it before ` +
+  117 |       `~${24 - Math.ceil((minutesAhead + 60) / 60)}:00 UTC.`,
+> 118 |   ).toBe(new Date().getUTCDate());
+      |     ^ Error: this test needs 240 minutes of clear day left - a class must start and end on the same UTC date. Run it before ~20:00 UTC.
+  119 | }
+  120 | 
+  121 | /** Build a throwaway site + room and hand back the room route. */
+  122 | async function scratchRoom(ownerApi: any, clubId: string) {
+  123 |   const siteId = await createScratchSite(ownerApi, clubId, scratchName('site-owp009'));
+  124 |   const roomRes = await ownerApi.post(`${env.apiURL}/clubs/${clubId}/sites/${siteId}/rooms`, {
+  125 |     headers: { 'x-app-id': env.appId },
+  126 |     data: { name: scratchName('room'), capacity: 10, roomsize: '30', floor: '1' },
+  127 |   });
+  128 |   const body = await roomRes.json().catch(() => null);
+  129 |   const roomId: string | undefined = body?.data?.id ?? body?.data?.roomId;
+  130 |   return { siteId, roomRoute: fillRoute('room', { clubId, siteId, roomId: roomId as string }) };
+  131 | }
+  132 | 
+  133 | /**
+  134 |  * ============================================================================
+  135 |  * THE CLASS IS CREATED FOR **TODAY**, AT 09:00. Both halves of that matter.
+  136 |  * ============================================================================
+  137 |  *
+  138 |  * TODAY, because the calendar opens on the day view and none of its navigation
+  139 |  * could be driven - the mini-calendar cells overlap at an identical bounding
+  140 |  * box, month-view chips render 0x0, the day arrows are not siblings of the
+  141 |  * Today button, and the room page's own per-class kebab is 0x0 as well. A day
+  142 |  * went into fighting that before the simpler route appeared: put the class on
+  143 |  * today and no navigation is needed at all.
+  144 |  *
+  145 |  * 09:00, because the earlier 400 on "a class today" was NOT a future-date
+  146 |  * rule. `classValidator.js` has no date constraint whatsoever, only
+  147 |  * `startTime < endTime` (line 184) - the 400 came from the default duration
+  148 |  * pushing the end time past midnight. A morning slot has room before it.
+  149 |  *
+  150 |  * A morning class is also inside the two-hour late-cancel window for the whole
+  151 |  * working day, which is what makes step 6 assertable without contriving a
+  152 |  * second class or a fake clock.
+  153 |  */
+  154 | test.describe('Owner edits an event on the calendar', () => {
+  155 |   test('OWP-009 - the owner can rename and reschedule a class @OWP-009 @destructive', async ({
+  156 |     calendarPage,
+  157 |     sitesPage,
+  158 |     ownerApi,
+  159 |     clubId,
+  160 |   }, testInfo) => {
+  161 |     testInfo.annotations.push({
+  162 |       type: 'manual-scenario',
+  163 |       description: 'manual-qa/role-owner-primary.md#OWP-009 (steps 1, 2, 3)',
+  164 |     });
+  165 | 
+  166 |     await ensureAutomationCurriculum(ownerApi, clubId);
+  167 | 
+  168 |     const original = scratchName('owp009');
+  169 |     const renamed = `${original} renamed`;
+  170 |     let siteId: string | undefined;
+  171 |     let classId: string | undefined;
+  172 | 
+  173 |     try {
+  174 |       const scratch = await scratchRoom(ownerApi, clubId);
+  175 |       siteId = scratch.siteId;
+  176 | 
+  177 |       await sitesPage.openCreateClassForm(scratch.roomRoute, todayIso(), '09:00');
+  178 |       classId = await sitesPage.createClass(original, AUTOMATION_CURRICULUM_NAME);
+  179 | 
+  180 |       // Step 1 - tap the event on the calendar; its detail view opens.
+  181 |       await calendarPage.openTodayEvent(clubRoute(clubId, 'calendar'), original);
+  182 |       await calendarPage.openChangeDialog();
+  183 | 
+  184 |       // Step 2 - change the name and save.
+  185 |       const renameRes = await calendarPage.renameAndSave(renamed);
+  186 |       expect(
+  187 |         renameRes.ok,
+  188 |         `PUT .../classes/:classId was refused (${renameRes.status}) when renaming.`,
+  189 |       ).toBeTruthy();
+  190 | 
+  191 |       /**
+  192 |        * Read the name back off the SERVER rather than the screen. The sheet's
+  193 |        * edge case is explicit that an edit must persist "not just a local UI
+  194 |        * change", and a re-render can happily show an optimistic value that was
+  195 |        * never stored.
+  196 |        */
+  197 |       const afterRename = await ownerApi.get(
+  198 |         `${env.apiURL}/clubs/${clubId}/classes/${classId}`,
+  199 |         { headers: { 'x-app-id': env.appId } },
+  200 |       );
+  201 |       const renamedBody = await afterRename.json().catch(() => null);
+  202 |       expect(
+  203 |         renamedBody?.data?.name,
+  204 |         'the rename was accepted but did not persist server-side.',
+  205 |       ).toBe(renamed);
+  206 | 
+  207 |       // Step 3 - move it 5 days ahead (may land in the following month), and save.
+  208 |       const daysAhead = 5;
+  209 |       const targetDate = new Date(
+  210 |         Date.UTC(
+  211 |           new Date().getUTCFullYear(),
+  212 |           new Date().getUTCMonth(),
+  213 |           new Date().getUTCDate() + daysAhead,
+  214 |         ),
+  215 |       );
+  216 |       const targetIso = todayIso(targetDate);
+  217 |       await calendarPage.openTodayEvent(clubRoute(clubId, 'calendar'), renamed);
+  218 |       await calendarPage.openChangeDialog();
+```
