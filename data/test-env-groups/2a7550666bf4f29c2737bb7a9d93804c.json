@@ -1,1 +1,1 @@
-{"id":"2a7550666bf4f29c2737bb7a9d93804c","fullName":"specs/smoke-testing/08-class-creation/sensei.create-class.spec.ts:59:7","name":"SEN-003 - a sensei can create a one-off class @SEN-003 @destructive","status":"passed","testResultsByEnv":{"default":"46fa863ec4935d31e147989891ea76fa"}}
+{"id":"2a7550666bf4f29c2737bb7a9d93804c","fullName":"specs/smoke-testing/08-class-creation/sensei.create-class.spec.ts:59:7","name":"SEN-003 - a sensei can create a one-off class @SEN-003 @destructive","status":"passed","testResultsByEnv":{"default":"5befb0b619c059309fa5e62f7212365c"}}
