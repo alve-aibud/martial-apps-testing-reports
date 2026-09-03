@@ -1,1 +1,1 @@
-{"id":"5dd281c66f0cae68f20859e3a3745e31","fullName":"specs/smoke-testing/08-class-creation/owner.create-room.spec.ts:36:7","name":"OWP-004 - a new room is created and listed @OWP-004 @destructive","status":"passed","testResultsByEnv":{"default":"835fab8713018c1ff0c1322366853fc7"}}
+{"id":"5dd281c66f0cae68f20859e3a3745e31","fullName":"specs/smoke-testing/08-class-creation/owner.create-room.spec.ts:36:7","name":"OWP-004 - a new room is created and listed @OWP-004 @destructive","status":"passed","testResultsByEnv":{"default":"6f694661bb2497e517b9e28a40b08a3d"}}
