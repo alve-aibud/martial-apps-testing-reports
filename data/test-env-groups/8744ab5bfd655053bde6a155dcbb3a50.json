@@ -1,1 +1,1 @@
-{"id":"8744ab5bfd655053bde6a155dcbb3a50","fullName":"specs/smoke-testing/03-authentication/sign-out.spec.ts:26:7","name":"SMK-022 - logout ends the session and /dashboard bounces to /login @SMK-022","status":"passed","testResultsByEnv":{"default":"8a017cb243564ce49e71f8383db79cb0"}}
+{"id":"8744ab5bfd655053bde6a155dcbb3a50","fullName":"specs/smoke-testing/03-authentication/sign-out.spec.ts:26:7","name":"SMK-022 - logout ends the session and /dashboard bounces to /login @SMK-022","status":"passed","testResultsByEnv":{"default":"b70f2e6868c03b1d024ce8fb8596816d"}}
