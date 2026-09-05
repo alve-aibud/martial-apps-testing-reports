@@ -1,1 +1,1 @@
-{"id":"874ea0845ce8ffebef657be02677a938","fullName":"specs/smoke-testing/03-authentication/login-form.spec.ts:51:7","name":"SMK-021 - a wrong password is refused @SMK-021","status":"passed","testResultsByEnv":{"default":"3a531576dd62e936a1cb1f272a98600c"}}
+{"id":"874ea0845ce8ffebef657be02677a938","fullName":"specs/smoke-testing/03-authentication/login-form.spec.ts:51:7","name":"SMK-021 - a wrong password is refused @SMK-021","status":"passed","testResultsByEnv":{"default":"72805270878650ec405bf766d58ec48e"}}
