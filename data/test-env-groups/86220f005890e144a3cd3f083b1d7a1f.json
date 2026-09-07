@@ -1,1 +1,0 @@
-{"id":"86220f005890e144a3cd3f083b1d7a1f","fullName":"specs/smoke-testing/16-realtime-messaging/member-sensei.read-receipt.spec.ts:40:7","name":"XC-005 - the checkmark goes from unread to read without a reload @XC-005 @destructive","status":"passed","testResultsByEnv":{"default":"2ffde4092abd813812d8dd063fc5bd7a"}}
