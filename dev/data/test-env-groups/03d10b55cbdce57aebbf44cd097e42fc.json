@@ -1,1 +1,1 @@
-{"id":"03d10b55cbdce57aebbf44cd097e42fc","fullName":"specs/smoke-testing/08-class-creation/owner.create-events.spec.ts:218:7","name":"OWP-008 - an owner can create a one-off workshop @OWP-008 @destructive","status":"passed","testResultsByEnv":{"default":"80ad650108373c3e984863613c3f12fa"}}
+{"id":"03d10b55cbdce57aebbf44cd097e42fc","fullName":"specs/smoke-testing/08-class-creation/owner.create-events.spec.ts:218:7","name":"OWP-008 - an owner can create a one-off workshop @OWP-008 @destructive","status":"passed","testResultsByEnv":{"default":"1b1b74ce8e65bdc2f92de4ddfcdbb4cd"}}
