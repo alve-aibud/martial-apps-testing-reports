@@ -1,1 +1,1 @@
-{"id":"cd7797b72bf57d05b53930e6d8166bd4","fullName":"specs/smoke-testing/14-child-profile/child.allowed.spec.ts:68:9","name":"CHD-002 - a child can open Progress @CHD-002","status":"skipped","testResultsByEnv":{"default":"3a6aba56a0e50de76a39cdfbd886fc7c"}}
+{"id":"cd7797b72bf57d05b53930e6d8166bd4","fullName":"specs/smoke-testing/14-child-profile/child.allowed.spec.ts:68:9","name":"CHD-002 - a child can open Progress @CHD-002","status":"passed","testResultsByEnv":{"default":"bea217f973d544555945f16cd4c916b5"}}

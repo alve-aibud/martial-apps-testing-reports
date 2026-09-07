@@ -1,1 +1,1 @@
-{"id":"0665077fe9d7d9b82849d811824000ae","fullName":"specs/smoke-testing/14-child-profile/child.restricted.spec.ts:155:9","name":"CHD-001 control - parent is offered Support @CHD-001","status":"skipped","testResultsByEnv":{"default":"662f22b72b5aff4b205538ada1b0c6d2"}}
+{"id":"0665077fe9d7d9b82849d811824000ae","fullName":"specs/smoke-testing/14-child-profile/child.restricted.spec.ts:155:9","name":"CHD-001 control - parent is offered Support @CHD-001","status":"passed","testResultsByEnv":{"default":"b2400a01f6a6bc24a7577a6d39bc51ab"}}
