@@ -1,0 +1,1 @@
+CLEANUP FAILED: could not delete scratch child profile cmtsxs96902j2v0ecxvel743c in household cmsbhi2fk001410nkrlu2q98j (500). Fix by hand: DELETE .../households/cmsbhi2fk001410nkrlu2q98j/child-profiles/cmtsxs96902j2v0ecxvel743c, or it will sit in the household indefinitely and can eventually crowd out the real child other tests look up by name (see CHD-040/PAR-003, 2026-08-30).

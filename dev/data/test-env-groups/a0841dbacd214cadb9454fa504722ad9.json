@@ -1,1 +1,1 @@
-{"id":"a0841dbacd214cadb9454fa504722ad9","fullName":"specs/smoke-testing/15-video-library/member.read-only.spec.ts:22:7","name":"MEM-011 - the club library is read-only for a member @MEM-011","status":"failed","testResultsByEnv":{"default":"9df8efd3df90f7861380a711e767e8f2"}}
+{"id":"a0841dbacd214cadb9454fa504722ad9","fullName":"specs/smoke-testing/15-video-library/member.read-only.spec.ts:22:7","name":"MEM-011 - the club library is read-only for a member @MEM-011","status":"passed","testResultsByEnv":{"default":"027cc9be886d32f8ac19e2a65de2fb8c"}}
