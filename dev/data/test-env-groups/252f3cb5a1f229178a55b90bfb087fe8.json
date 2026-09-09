@@ -1,1 +1,1 @@
-{"id":"252f3cb5a1f229178a55b90bfb087fe8","fullName":"specs/smoke-testing/03-authentication/login-form.spec.ts:32:7","name":"SMK-020 - valid credentials sign a user in through the form @SMK-020","status":"passed","testResultsByEnv":{"default":"1224be486a453ca45c3d2d69c050d908"}}
+{"id":"252f3cb5a1f229178a55b90bfb087fe8","fullName":"specs/smoke-testing/03-authentication/login-form.spec.ts:32:7","name":"SMK-020 - valid credentials sign a user in through the form @SMK-020","status":"passed","testResultsByEnv":{"default":"efd83351fe977a88c877bd0d3870c7c4"}}
