@@ -1,1 +1,1 @@
-{"id":"e76671e48843e26a3fa14710bda04a5a","fullName":"specs/smoke-testing/08-class-creation/owner.create-class.spec.ts:52:7","name":"OWP-006 - a one-off class is created in a room @OWP-006 @destructive","status":"passed","testResultsByEnv":{"default":"b5da7d7b22197c6dd7dffd82bd94cb59"}}
+{"id":"e76671e48843e26a3fa14710bda04a5a","fullName":"specs/smoke-testing/08-class-creation/owner.create-class.spec.ts:52:7","name":"OWP-006 - a one-off class is created in a room @OWP-006 @destructive","status":"passed","testResultsByEnv":{"default":"4e867240e76be74c089a1e0db1e93515"}}
