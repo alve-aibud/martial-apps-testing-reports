@@ -1,1 +1,1 @@
-{"id":"e6c52bcaeccfd15817d159fb66e88817","fullName":"specs/smoke-testing/01-owner-registration/public-site.spec.ts:25:7","name":"SMK-001 - the Sign Up call to action reaches /register @SMK-001","status":"passed","testResultsByEnv":{"default":"8cbc5455ff992896c482d19898bd6a8b"}}
+{"id":"e6c52bcaeccfd15817d159fb66e88817","fullName":"specs/smoke-testing/01-owner-registration/public-site.spec.ts:25:7","name":"SMK-001 - the Sign Up call to action reaches /register @SMK-001","status":"passed","testResultsByEnv":{"default":"2c1555eccd1de8a10960c40bbdc28a82"}}
