@@ -1,1 +1,1 @@
-{"id":"4cc654426096e256ef7ed6d6dc9b9f45","fullName":"specs/smoke-testing/07-join-requests/owner.join-requests.spec.ts:209:7","name":"OWP-011 - the owner rejects a pending applicant @OWP-011 @destructive","status":"passed","testResultsByEnv":{"default":"f10b9e1f1f74d6c792685f5a65ce3cd3"}}
+{"id":"4cc654426096e256ef7ed6d6dc9b9f45","fullName":"specs/smoke-testing/07-join-requests/owner.join-requests.spec.ts:209:7","name":"OWP-011 - the owner rejects a pending applicant @OWP-011 @destructive","status":"passed","testResultsByEnv":{"default":"0c0479167ce9d188402f7cc613b6bb9e"}}
