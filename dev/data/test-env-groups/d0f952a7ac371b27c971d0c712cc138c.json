@@ -1,1 +1,1 @@
-{"id":"d0f952a7ac371b27c971d0c712cc138c","fullName":"specs/smoke-testing/11-exams-grading-belts/secretary.allowed.spec.ts:27:7","name":"SEC-006 - the eligible-students page opens for a secretary @SEC-006","status":"passed","testResultsByEnv":{"default":"98b304fa87801ed29b41a7f2b45b16f0"}}
+{"id":"d0f952a7ac371b27c971d0c712cc138c","fullName":"specs/smoke-testing/11-exams-grading-belts/secretary.allowed.spec.ts:27:7","name":"SEC-006 - the eligible-students page opens for a secretary @SEC-006","status":"failed","testResultsByEnv":{"default":"d455aeae83d9def391c9d5507d4b1934"}}
